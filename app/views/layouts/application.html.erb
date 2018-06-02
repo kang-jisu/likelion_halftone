@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Workspace</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  
+  <style>
+
+      *{
+        text-decoration:none;
+      }
+      #log{
+        position:absolute;
+        top:30px;
+        right:80px;
+      }
+      
+      #field{
+        width:70%;
+        margin:auto;
+        margin-top:100px
+        
+      }
+      #field table{
+        width:100%;
+        margin:auto;
+      }
+      #field table #th *{
+        
+        border-top:2px solid black;
+        border-bottom:2px solid black;
+        padding:10px;
+        
+      }
+      #field table #td >*{
+        border-bottom:1px solid black;
+        padding:10px;
+      }
+      #pwrap{
+        position:relative;
+      }
+      #write{
+        position:absolute;
+        right:10px;
+      }
+      
+
+    
+  </style>
+</head>
+<body>
+
+<div id="log">  
+<% if user_signed_in?%>
+    <%= link_to '로 그 아 웃' , '/users/sign_out', method: :delete, class: 'btn btn-primary', role:"button" %>
+<% else %>
+    <a href ="/users/sign_in" class="btn btn-primary" role="button"> 로그인</a>
+    <a href="/users/sign_up" class="btn btn-primary" role="button">회원가입</a>
+
+<% end%>
+</div>
+<div id="field">
+  <h1><a href="/">LIKELION<br>게시판 만들기</a></h1><br>
+
+<%= yield %>
+</div>
+</body>
+</html>

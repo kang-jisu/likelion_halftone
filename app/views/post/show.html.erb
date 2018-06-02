@@ -1,0 +1,39 @@
+<hr>
+<h3><%= @post.title %></h3>
+<hr>
+<span style="font-size:small;">작성자:<%= @post.writer %></span>
+<br>
+<p><%= @post.content %></p>
+
+<!--<% if(@post.id>1) %>-->
+<!--<a href="/post/show/<%=@post.id-1%>">이전글</a>-->
+<!--<% else %>-->
+<!--<a href="#">이전글없음</a>-->
+<!--<% end %>-->
+
+
+<% if current_user.id == @post.user.id %>
+<a href="/post/edit/<%=@post.id%>">수정</a>
+<a href="/post/delete/<%=@post.id%>">삭제</a>
+<%end%>
+<a href="/"> 목록</a>
+<hr >
+
+<% @comments.each do |c| %>
+
+    <%=c.user.email%>&nbsp;&nbsp;<span  style="padding:0px 20px 0px 20px;display:inline-block;width:70%"><p><%=c.text%></p>
+    </span> 
+    <% if current_user.id == c.user.id %>
+    <a href="/comment/delete/<%=c.id%>">삭제</a>
+    <% end %>
+    <br>
+  <hr>
+<% end %>
+
+<form action="/comment/create/<%=@post.id%>" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  
+  <label for="textarea" >Comment</label><br>
+  <textarea name="comment" style="width:80%" id="textarea"></textarea>
+  <input class="btn" type="submit" value="등록">
+</form>
